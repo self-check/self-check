@@ -1,0 +1,41 @@
+Optional Self-Check Tool
+Copyright (c) 2026 Mohammad Ghazizadeh, MD, PhD.
+
+All Rights Reserved.
+
+This software and its associated documentation files are the proprietary 
+property of Mohammad Ghazizadeh. 
+
+Permission is hereby GRANTED to users to access and use the software 
+via the hosted URL for personal, research and non-commercial purposes.
+
+Permission is strictly PROHIBITED for:
+1. Copying, modifying, or distributing the source code.
+2. Using the code or logic for commercial gain.
+3. Submitting this code to any app store or repository under a different name.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+自己チェック
+著作権 (c) 2026 Mohammad Ghazizadeh, MD, PhD.
+
+無断転載禁止。
+
+本ソフトウェアおよび関連ドキュメントファイルは、Mohammad Ghazizadeh の所有物です。
+
+本ソフトウェアへのアクセスおよび使用は、ホストされている URL を介して個人的かつ非営利目的でのみ許可されます。
+
+以下の行為は固く禁じられています。
+1. ソースコードの複製、改変、または配布。
+2. コードまたはロジックを営利目的で使用すること。
+
+3. 本コードを別の名前でアプリストアまたはリポジトリに提出すること。
+
+本ソフトウェアは「現状有姿」で提供され、明示的か黙示的かを問わず、いかなる種類の保証もありません。これには、商品性、特定目的への適合性、および非侵害に関する保証が含まれますが、これらに限定されません。いかなる場合においても、著作者または著作権者は、契約、不法行為、その他いかなる法的根拠に基づく訴訟であっても、本ソフトウェアまたはその使用もしくはその他の取引に起因または関連して生じるいかなる請求、損害、その他の責任についても責任を負いません。
+
