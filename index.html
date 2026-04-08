@@ -23,8 +23,6 @@ form-action 'self';
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 
-
-
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
         .score-input {
@@ -60,11 +58,10 @@ form-action 'self';
         </div>
 
         <h1 class="text-3xl font-bold text-gray-800 mb-2" id="main-title">Optional Self-Check</h1>
-        <p class="text-gray-600 mb-8" id="intro-text">Obtain your scores and transfer them to your Ved-Log app. No personal data is stored or transmitted. All inputs remain on your device.
-</p>
+        <p class="text-gray-600 mb-8" id="intro-text">Obtain your scores and transfer them to your Ved-Log app. No personal data is stored or transmitted. All inputs remain on your device.</p>
 
         <section class="mb-10">
-            <h2 class="text-2xl font-semibold text-blue-700 mb-6 border-b pb-2" id="part1-title">Part 1: Performance Confidence</h2>
+            <h2 class="text-2xl font-semibold text-blue-700 mb-6 border-b pb-2" id="part1-title">Part 1: Performance Assessment</h2>
             <div id="questions-container" class="space-y-6">
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                 <label class="block text-lg font-medium text-gray-700 mb-3">1. How confident did you feel during intimate situations?</label>
@@ -127,7 +124,7 @@ form-action 'self';
             <h2 class="text-3xl font-bold text-center text-green-700 mb-6" id="results-title">Your Self-Check Results</h2>
             <div class="grid md:grid-cols-3 gap-4 mb-8 text-center">
                 <div class="p-4 bg-white border rounded-xl shadow">
-                    <p class="text-xs font-semibold text-gray-500 uppercase" id="res-perf-label">Confidence</p>
+                    <p class="text-xs font-semibold text-gray-500 uppercase" id="res-perf-label">Performance</p>
                     <p id="perf-score-val" class="text-3xl font-bold text-green-600">--</p>
                     <p id="perf-class" class="text-sm font-bold text-gray-700">--</p>
                 </div>
@@ -148,7 +145,6 @@ form-action 'self';
             </div>
         </section>
     </div>
-
 <script>
 "use strict";
 let currentLanguage = 'en';
@@ -160,17 +156,20 @@ const LANGUAGE_MAP = {
         'all_rights': "All rights reserved.",
         'main_title': "Optional Self-Check", 
         'intro_text': "Obtain your scores and transfer them to your Ved-Log app. No personal data is stored or transmitted. All inputs remain on your device.",
-        'part1_title': "Part 1: Performance Confidence", 
+        'part1_title': "Part 1: Performance Assessment", 
         'part2_title': "Part 2: Satisfaction Level", 
         'part3_title': "Part 3: Firmness Level",
         'sat_label': "How satisfied were you with your overall experience?", 
         'q6_label': "How would you describe your firmness level?",
         'calculate_btn': "See Results", 
         'results_title': "Your Self-Check Results", 
-        'res_perf_label': "Confidence", 
+        'res_perf_label': "Performance", 
         'res_sat_label': "Satisfaction", 
         'res_firm_label': "Firmness",
-        'copy_btn': "📋 Copy Summary for VED-Log App", 
+        'copy_btn': "📋 Copy Summary for VED-Log App",
+ 
+'copy_confirm': "Data will be transferred to the VED-Log app. Copy to clipboard?",
+
         'copy_done': "Copied to Clipboard!", 
         'validation_error': "Please complete all selections before calculating results.",
         'questions': [
@@ -191,43 +190,35 @@ const LANGUAGE_MAP = {
         'sat_classes': ["Not satisfied", "Slightly satisfied", "Moderately satisfied", "Satisfied", "Very satisfied"],
         'firm_classes': ["Level 1: Soft", "Level 2: Slight", "Level 3: Functional", "Level 4: Strong", "Level 5: Fully firm"]
     },
-        'ja': {
-            'disclaimer_title': "医療免責事項", 
-            'disclaimer_text': "このツールは情報提供のみを目的としており、医学的な助言、診断、治療を提供するものではありません。", 'all_rights': "著作権所有。",
-            'main_title': "自己チェック", 
-            'intro_text': "スコアを取得して、Ved-Logアプリに転送してください。個人データは保存も送信もされません。すべての入力内容はデバイス上に保存されます。",
-            'part1_title': "パート 1: 自信度", 
-            'part2_title': "パート 2: 満足度", 
-            'part3_title': "パート 3: 硬さレベル",
-            'sat_label': "全体的な体験にどの程度満足しましたか？", 
-            'q6_label': "硬さのレベルをどのように表現しますか？",
-            'calculate_btn': "計算する", 
-            'results_title': "自己チェック結果", 
-            'res_perf_label': "自信度", 
-            'res_sat_label': "満足度", 
-            'res_firm_label': "硬さ",
-            'copy_btn': "📋 VED-Logアプリにコピー", 
-            'copy_done': "コピーしました！", 
-            'validation_error': "すべての項目を選択してください。",
-            'questions': [
-                "親密な状況において、どの程度自信を感じましたか？", 
-                "全体的なパフォーマンスに満足できたのはどのくらいの頻度                 でしたか？", 
-                "行為中、体調はどの程度安定していましたか？", 
-                "体験中、どの程度快適でしたか？", 
-                "現在のご自身の状態を総合的に評価するとどうなりますか？"
-            ],
-            'options': [
-                ['0 (ない)', '1 (少し)', '2 (普通)', '3 (ある)', '4 (完全にある)'],
-                ['0 (全くない)', '1 (たまに)', '2 (時々)', '3 (よくある)', '4 (常に)'],
-                ['0 (不安定)', '1 (やや不安定)', '2 (普通)', '3 (安定)', '4 (非常に安定)'],
-                ['0 (不快)', '1 (やや不快)', '2 (普通)', '3 (快適)', '4 (非常に快適)'],
-                ['0 (非常に低い)', '1 (低い)', '2 (普通)', '3 (良い)', '4 (最高)']
-            ],
-            'perf_classes': ["重度", "中等度", "軽症〜中等症", "軽症", "正常"],
-            'sat_classes': ["満足していない", "少し満足", "普通", "満足", "非常に満足"],
-            'firm_classes': ["レベル 1: 柔らかい", "レベル 2: 少し硬い", "レベル 3: 挿入可能", "レベル 4: 硬い", "レベル 5: 完全に硬い"]
-        },
-        'zh': {
+    'ja': {
+        'disclaimer_title': "医療免責事項", 
+        'disclaimer_text': "このツールは情報提供のみを目的としており、医学的な助言、診断、治療を提供するものではありません。",
+        'all_rights': "不許複製・無断転載禁止",
+        'main_title': "自己チェック", 
+        'intro_text': "スコアを取得して、Ved-Logアプリに転送してください。個人データは保存も送信もされません。すべての入力内容はデバイス上に保存されます。",
+        'part1_title': "パート 1: パフォーマンス評価", 
+        'part2_title': "パート 2: 満足度", 
+        'part3_title': "パート 3: 硬さレベル",
+        'sat_label': "全体的な体験にどの程度満足しましたか？", 
+        'q6_label': "硬さのレベルをどのように表現しますか？",
+        'calculate_btn': "結果を見る", 
+        'results_title': "自己チェック結果", 
+        'res_perf_label': "パフォーマンス", 
+        'res_sat_label': "満足度", 
+        'res_firm_label': "硬さ",
+        'copy_btn': "📋 VED-Logアプリにコピー", 
+
+'copy_confirm': "データはVED-Logアプリに転送されます。クリップボードにコピーしますか？",
+
+        'copy_done': "コピーしました！", 
+        'validation_error': "すべての項目を選択してください。",
+        'questions': ["親密な状況において、どの程度自信を感じましたか？", "全体的なパフォーマンスに満足できたのはどのくらいの頻度でしたか？", "行為中、体調はどの程度安定していましたか？", "体験中、どの程度快適でしたか？", "現在のご自身の状態を総合的に評価するとどうなりますか？"],
+        'options': [['0 (ない)', '1 (少し)', '2 (普通)', '3 (ある)', '4 (完全にある)'],['0 (全くない)', '1 (たまに)', '2 (時々)', '3 (よくある)', '4 (常に)'],['0 (不安定)', '1 (やや不安定)', '2 (普通)', '3 (安定)', '4 (非常に安定)'],['0 (不快)', '1 (やや不快)', '2 (普通)', '3 (快適)', '4 (非常に快適)'],['0 (非常に低い)', '1 (低い)', '2 (普通)', '3 (良い)', '4 (最高)']],
+        'perf_classes': ["重度", "中等度", "軽症〜中等症", "軽症", "正常"],
+        'sat_classes': ["満足していない", "少し満足", "普通", "満足", "非常に満足"],
+        'firm_classes': ["レベル 1: 柔らかい", "レベル 2: 少し硬い", "レベル 3: 挿入可能", "レベル 4: 硬い", "レベル 5: 完全に硬い"]
+    },
+ 'zh': {
     'disclaimer_title': "强制性医疗免责声明",
     'disclaimer_text': "本工具仅供参考，不提供医疗建议、诊断或治疗。",
     'main_title': "可选自查工具",
@@ -239,10 +230,12 @@ const LANGUAGE_MAP = {
     'q6_label': "您如何描述您的硬度等级？",
     'calculate_btn': "查看结果",
     'results_title': "您的自查结果",
-    'res_perf_label': "自信度",
+    'res_perf_label': "表现",
     'res_sat_label': "满意度",
     'res_firm_label': "硬度",
     'copy_btn': "📋 复制摘要至 Ved-Log 应用程序",
+
+'copy_confirm':"数据将传输到 VED-Log 应用程序。复制到剪贴板？",
     'copy_done': "已复制到剪贴板！",
     'validation_error': "请在计算结果前完成所有选项。",
     'questions': [
@@ -275,10 +268,12 @@ const LANGUAGE_MAP = {
     'q6_label': "귀하의 강직도 수준을 어떻게 설명하시겠습니까?",
     'calculate_btn': "결과 보기",
     'results_title': "귀하의 자가진단 결과",
-    'res_perf_label': "자신감",
+    'res_perf_label': "성능",
     'res_sat_label': "만족도",
     'res_firm_label': "강직도",
     'copy_btn': "📋 VED-Log 앱용 요약 복사하기",
+'copy_confirm': "데이터가 VED-Log 앱으로 전송됩니다. 클립보드에 복사하시겠습니까?",
+
     'copy_done': "클립보드에 복사되었습니다!",
     'validation_error': "결과를 계산하기 전에 모든 선택 항목을 완료해 주십시오.",
     'questions': [
@@ -299,43 +294,7 @@ const LANGUAGE_MAP = {
     'sat_classes': ["만족하지 않음", "약간 만족함", "어느 정도 만족함", "만족함", "매우 만족함"],
     'firm_classes': ["1단계: 부드러움", "2단계: 약간의 강직도", "3단계: 기능적 강직도", "4단계: 강함", "5단계: 완전히 단단함"]
 },
-        'es': {
-    'disclaimer_title': "AVISO MÉDICO OBLIGATORIO",
-    'disclaimer_text': "Cet outil est destiné à un usage informatif uniquement et ne constitue pas un avis médical, un diagnostic ou un traitement.",
-    'main_title': "Autochequeo Opcional",
-    'intro_text': "Obtén tus puntuaciones y transfiérelas a tu aplicación Ved-Log. No se almacena ni se transmite ningún dato personal. Todos los datos introducidos permanecen en su dispositivo.",
-    'part1_title': "Parte 1: Confianza en el desempeño",
-    'part2_title': "Parte 2: Nivel de satisfacción",
-    'part3_title': "Parte 3: Nivel de firmeza",
-    'sat_label': "¿Qué tan satisfecho estuvo con su experiencia general?",
-    'q6_label': "¿Cómo describiría su nivel de firmeza?",
-    'calculate_btn': "Ver resultados",
-    'results_title': "Resultados de su autochequeo",
-    'res_perf_label': "Confianza",
-    'res_sat_label': "Satisfacción",
-    'res_firm_label': "Firmeza",
-    'copy_btn': "📋 Copiar resumen para la aplicación VED-Log",
-    'copy_done': "¡Copiado al portapapeles!",
-    'validation_error': "Por favor, complete todas las selecciones antes de calcular los resultados.",
-    'questions': [
-        "¿Qué tan seguro de sí mismo se sintió durante las situaciones íntimas?",
-        "¿Con qué frecuencia estuvo satisfecho con su desempeño general?",
-        "¿Qué tan constante sintió su condición durante la actividad?",
-        "¿Qué tan cómodo se sintió durante su experiencia?",
-        "En general, ¿cómo calificaría su condición esta semana?"
-    ],
-    'options': [
-        ['0 (Sin confianza)', '1 (Ligeramente)', '2 (Moderadamente)', '3 (Mayormente)', '4 (Totalmente)'],
-        ['0 (Nunca)', '1 (Rara vez)', '2 (A veces)', '3 (A menudo)', '4 (Siempre)'],
-        ['0 (Muy inconsistente)', '1 (Inconsistente)', '2 (Algo constante)', '3 (Mayormente constante)', '4 (Muy constante)'],
-        ['0 (Muy incómodo)', '1 (Incómodo)', '2 (Neutral)', '3 (Cómodo)', '4 (Muy cómodo)'],
-        ['0 (Muy baja)', '1 (Baja)', '2 (Moderada)', '3 (Buena)', '4 (Excelente)']
-    ],
-    'perf_classes': ["Grave", "Moderada", "Leve a moderada", "Leve", "Ninguna"],
-    'sat_classes': ["No satisfecho", "Ligeramente satisfecho", "Moderadamente satisfecho", "Satisfecho", "Muy satisfecho"],
-    'firm_classes': ["Nivel 1: Blando", "Nivel 2: Ligero", "Nivel 3: Funcional", "Nivel 4: Fuerte", "Nivel 5: Totalmente firme"]
-},
-        'fr': {
+'fr': {
     'disclaimer_title': "AVERTISSEMENT MÉDICAL OBLIGATOIRE",
     'disclaimer_text': "Cet outil est destiné à un usage informatif uniquement et ne constitue pas un avis médical, un diagnostic ou un traitement.",
     'main_title': "Auto-vérification facultative",
@@ -347,10 +306,12 @@ const LANGUAGE_MAP = {
     'q6_label': "Comment décririez-vous votre niveau de fermeté ?",
     'calculate_btn': "Voir les résultats",
     'results_title': "Vos résultats d'auto-vérification",
-    'res_perf_label': "Confiance",
+    'res_perf_label': "Performance",
     'res_sat_label': "Satisfaction",
     'res_firm_label': "Fermeté",
     'copy_btn': "📋 Copier le résumé pour l'application VED-Log",
+'copy_confirm': "Les données seront envoyées à l'application VED-Log. Copier dans le presse-papiers ?",
+
     'copy_done': "Copié dans le presse-papiers !",
     'validation_error': "Veuillez compléter toutes les sélections avant de calculer les résultats.",
     'questions': [
@@ -371,6 +332,83 @@ const LANGUAGE_MAP = {
     'sat_classes': ["Pas satisfait", "Légèrement satisfait", "Moyennement satisfait", "Satisfait", "Très satisfait"],
     'firm_classes': ["Niveau 1 : Mou", "Niveau 2 : Léger", "Niveau 3 : Fonctionnel", "Niveau 4 : Ferme", "Niveau 5 : Entièrement ferme"]
 },
+        'es': {
+    'disclaimer_title': "AVISO MÉDICO OBLIGATORIO",
+    'disclaimer_text': "Cet outil est destiné à un usage informatif uniquement et ne constitue pas un avis médical, un diagnostic ou un traitement.",
+    'main_title': "Autochequeo Opcional",
+    'intro_text': "Obtén tus puntuaciones y transfiérelas a tu aplicación Ved-Log. No se almacena ni se transmite ningún dato personal. Todos los datos introducidos permanecen en su dispositivo.",
+    'part1_title': "Parte 1: Confianza en el desempeño",
+    'part2_title': "Parte 2: Nivel de satisfacción",
+    'part3_title': "Parte 3: Nivel de firmeza",
+    'sat_label': "¿Qué tan satisfecho estuvo con su experiencia general?",
+    'q6_label': "¿Cómo describiría su nivel de firmeza?",
+    'calculate_btn': "Ver resultados",
+    'results_title': "Resultados de su autochequeo",
+    'res_perf_label': "Actuación",
+    'res_sat_label': "Satisfacción",
+    'res_firm_label': "Firmeza",
+    'copy_btn': "📋 Copiar resumen para la aplicación VED-Log",
+'copy_confirm': "Los datos se enviarán a la aplicación VED-Log. ¿Copiar al portapapeles?",
+
+    'copy_done': "¡Copiado al portapapeles!",
+    'validation_error': "Por favor, complete todas las selecciones antes de calcular los resultados.",
+    'questions': [
+        "¿Qué tan seguro de sí mismo se sintió durante las situaciones íntimas?",
+        "¿Con qué frecuencia estuvo satisfecho con su desempeño general?",
+        "¿Qué tan constante sintió su condición durante la actividad?",
+        "¿Qué tan cómodo se sintió durante su experiencia?",
+        "En general, ¿cómo calificaría su condición esta semana?"
+    ],
+    'options': [
+        ['0 (Sin confianza)', '1 (Ligeramente)', '2 (Moderadamente)', '3 (Mayormente)', '4 (Totalmente)'],
+        ['0 (Nunca)', '1 (Rara vez)', '2 (A veces)', '3 (A menudo)', '4 (Siempre)'],
+        ['0 (Muy inconsistente)', '1 (Inconsistente)', '2 (Algo constante)', '3 (Mayormente constante)', '4 (Muy constante)'],
+        ['0 (Muy incómodo)', '1 (Incómodo)', '2 (Neutral)', '3 (Cómodo)', '4 (Muy cómodo)'],
+        ['0 (Muy baja)', '1 (Baja)', '2 (Moderada)', '3 (Buena)', '4 (Excelente)']
+    ],
+    'perf_classes': ["Grave", "Moderada", "Leve a moderada", "Leve", "Ninguna"],
+    'sat_classes': ["No satisfecho", "Ligeramente satisfecho", "Moderadamente satisfecho", "Satisfecho", "Muy satisfecho"],
+    'firm_classes': ["Nivel 1: Blando", "Nivel 2: Ligero", "Nivel 3: Funcional", "Nivel 4: Fuerte", "Nivel 5: Totalmente firme"]
+},
+
+        'ru': {
+    'disclaimer_title': "ОБЯЗАТЕЛЬНЫЙ МЕДИЦИНСКИЙ ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ",
+    'disclaimer_text': "Данный инструмент предназначен исключительно для ознакомительных целей и не предоставляет медицинских консультаций, диагностики или лечения.",
+    'main_title': "Дополнительная самопроверка",
+    'intro_text': "Получите свои результаты и перенесите их в приложение Ved-Log. Персональные данные не хранятся и не передаются. Все введенные данные остаются на вашем устройстве.",
+    'part1_title': "Часть 1: Уверенность в результатах",
+    'part2_title': "Часть 2: Уровень удовлетворенности",
+    'part3_title': "Часть 3: Уровень твердости",
+    'sat_label': "Насколько вы были удовлетворены общим результатом?",
+    'q6_label': "Как бы вы описали свой уровень твердости?",
+    'calculate_btn': "Посмотреть результаты",
+    'results_title': "Результаты вашей самопроверки",
+    'res_perf_label': "производительность",
+    'res_sat_label': "Удовлетворенность",
+    'res_firm_label': "Твердость",
+    'copy_btn': "📋 Копировать сводку для приложения VED-Log",
+'copy_confirm': "Данные будут отправлены в приложение VED-Log. Скопировать в буфер обмена?",
+
+    'copy_done': "Скопировано в буфер обмена!",
+    'validation_error': "Пожалуйста, заполните все поля перед расчетом результатов.",
+    'questions': [
+        "Насколько уверенно вы чувствовали себя в интимные моменты?",
+        "Как часто вы были удовлетворены своими результатами в целом?",
+        "Насколько стабильным было ваше состояние во время активности?",
+        "Насколько комфортно вы чувствовали себя во время этого опыта?",
+        "В целом, как бы вы оценили свое состояние на этой неделе?"
+    ],
+    'options': [
+        ['0 (Не уверен)', '1 (Слегка)', '2 (Умеренно)', '3 (В основном)', '4 (Полностью)'],
+        ['0 (Никогда)', '1 (Редко)', '2 (Иногда)', '3 (Часто)', '4 (Всегда)'],
+        ['0 (Очень нестабильно)', '1 (Нестабильно)', '2 (Относительно стабильно)', '3 (В основном стабильно)', '4 (Очень стабильно)'],
+        ['0 (Очень неудобно)', '1 (Неудобно)', '2 (Нейтрально)', '3 (Удобно)', '4 (Очень удобно)'],
+        ['0 (Очень низкое)', '1 (Низкое)', '2 (Умеренное)', '3 (Хорошее)', '4 (Отличное)']
+    ],
+    'perf_classes': ["Тяжелая", "Средняя", "Легкая/Средняя", "Легкая", "Отсутствует"],
+    'sat_classes': ["Не удовлетворен", "Слегка удовлетворен", "Умеренно удовлетворен", "Удовлетворен", "Очень удовлетворен"],
+    'firm_classes': ["Уровень 1: Мягкий", "Уровень 2: Незначительный", "Уровень 3: Функциональный", "Уровень 4: Крепкий", "Уровень 5: Полностью твердый"]
+},        
         'de': {
     'disclaimer_title': "VERPFLICHTENDER MEDIZINISCHER HAFTUNGSAUSSCHLUSS",
     'disclaimer_text': "Dieses Tool dient ausschließlich Informationszwecken und stellt keine medizinische Beratung, Diagnose oder Behandlung dar.",
@@ -383,10 +421,12 @@ const LANGUAGE_MAP = {
     'q6_label': "Wie würden Sie Ihren Härtegrad beschreiben?",
     'calculate_btn': "Ergebnisse anzeigen",
     'results_title': "Ihre Selbstcheck-Ergebnisse",
-    'res_perf_label': "Vertrauen",
+    'res_perf_label': "Leistung",
     'res_sat_label': "Zufriedenheit",
     'res_firm_label': "Härte",
     'copy_btn': "📋 Zusammenfassung für VED-Log App kopieren",
+'copy_confirm': "Die Daten werden an die VED-Log-App gesendet. In die Zwischenablage kopieren?",
+
     'copy_done': "In die Zwischenablage kopiert!",
     'validation_error': "Bitte füllen Sie alle Auswahlfelder aus, bevor Sie die Ergebnisse berechnen.",
     'questions': [
@@ -407,42 +447,6 @@ const LANGUAGE_MAP = {
     'sat_classes': ["Nicht zufrieden", "Leicht zufrieden", "Mäßig zufrieden", "Zufrieden", "Sehr zufrieden"],
     'firm_classes': ["Stufe 1: Weich", "Stufe 2: Leicht", "Stufe 3: Funktional", "Stufe 4: Stark", "Stufe 5: Vollständig fest"]
 },
-        'ru': {
-    'disclaimer_title': "ОБЯЗАТЕЛЬНЫЙ МЕДИЦИНСКИЙ ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ",
-    'disclaimer_text': "Данный инструмент предназначен исключительно для ознакомительных целей и не предоставляет медицинских консультаций, диагностики или лечения.",
-    'main_title': "Дополнительная самопроверка",
-    'intro_text': "Получите свои результаты и перенесите их в приложение Ved-Log. Персональные данные не хранятся и не передаются. Все введенные данные остаются на вашем устройстве.",
-    'part1_title': "Часть 1: Уверенность в результатах",
-    'part2_title': "Часть 2: Уровень удовлетворенности",
-    'part3_title': "Часть 3: Уровень твердости",
-    'sat_label': "Насколько вы были удовлетворены общим результатом?",
-    'q6_label': "Как бы вы описали свой уровень твердости?",
-    'calculate_btn': "Посмотреть результаты",
-    'results_title': "Результаты вашей самопроверки",
-    'res_perf_label': "Уверенность",
-    'res_sat_label': "Удовлетворенность",
-    'res_firm_label': "Твердость",
-    'copy_btn': "📋 Копировать сводку для приложения VED-Log",
-    'copy_done': "Скопировано в буфер обмена!",
-    'validation_error': "Пожалуйста, заполните все поля перед расчетом результатов.",
-    'questions': [
-        "Насколько уверенно вы чувствовали себя в интимные моменты?",
-        "Как часто вы были удовлетворены своими результатами в целом?",
-        "Насколько стабильным было ваше состояние во время активности?",
-        "Насколько комфортно вы чувствовали себя во время этого опыта?",
-        "В целом, как бы вы оценили свое состояние на этой неделе?"
-    ],
-    'options': [
-        ['0 (Не уверен)', '1 (Слегка)', '2 (Умеренно)', '3 (В основном)', '4 (Полностью)'],
-        ['0 (Никогда)', '1 (Редко)', '2 (Иногда)', '3 (Часто)', '4 (Всегда)'],
-        ['0 (Очень нестабильно)', '1 (Нестабильно)', '2 (Относительно стабильно)', '3 (В основном стабильно)', '4 (Очень стабильно)'],
-        ['0 (Очень неудобно)', '1 (Неудобно)', '2 (Нейтрально)', '3 (Удобно)', '4 (Очень удобно)'],
-        ['0 (Очень низкое)', '1 (Низкое)', '2 (Умеренное)', '3 (Хорошее)', '4 (Отличное)']
-    ],
-    'perf_classes': ["Тяжелая", "Средняя", "Легкая/Средняя", "Легкая", "Отсутствует"],
-    'sat_classes': ["Не удовлетворен", "Слегка удовлетворен", "Умеренно удовлетворен", "Удовлетворен", "Очень удовлетворен"],
-    'firm_classes': ["Уровень 1: Мягкий", "Уровень 2: Незначительный", "Уровень 3: Функциональный", "Уровень 4: Крепкий", "Уровень 5: Полностью твердый"]
-},
         'nl': {
     'disclaimer_title': "VERPLICHTE MEDISCHE DISCLAIMER",
     'disclaimer_text': "Deze tool is uitsluitend bedoeld voor informatieve doeleinden en biedt geen medisch advies, diagnose of behandeling.",
@@ -455,10 +459,12 @@ const LANGUAGE_MAP = {
     'q6_label': "Hoe zou u uw niveau van stevigheid omschrijven?",
     'calculate_btn': "Resultaten bekijken",
     'results_title': "Uw resultaten van de zelfcontrole",
-    'res_perf_label': "Vertrouwen",
+    'res_perf_label': "Prestatie",
     'res_sat_label': "Tevredenheid",
-    'res_firm_label': "Stevigheid",
+    'res_firm_label': "Hardheid",
     'copy_btn': "📋 Kopieer samenvatting voor VED-Log App",
+'copy_confirm': "De gegevens worden naar de VED-Log-app verzonden. Kopiëren naar het klembord?",
+
     'copy_done': "Gekopieerd naar klembord!",
     'validation_error': "Vul alle selecties in voordat u de resultaten berekent.",
     'questions': [
@@ -491,10 +497,12 @@ const LANGUAGE_MAP = {
     'q6_label': "आप अपने कठोरता के स्तर का वर्णन कैसे करेंगे?",
     'calculate_btn': "परिणाम देखें",
     'results_title': "आपकी स्व-जांच के परिणाम",
-    'res_perf_label': "आत्मविश्वास",
+    'res_perf_label': "प्रदर्शन",
     'res_sat_label': "संतुष्टि",
     'res_firm_label': "कठोरता",
     'copy_btn': "📋 VED-Log ऐप के लिए सारांश कॉपी करें",
+'copy_confirm': "डेटा VED-Log ऐप पर भेजा जाएगा। क्लिपबोर्ड पर कॉपी करें?",
+
     'copy_done': "क्लिपबोर्ड पर कॉपी किया गया!",
     'validation_error': "परिणामों की गणना करने से पहले कृपया सभी चयन पूरे करें।",
     'questions': [
@@ -527,10 +535,12 @@ const LANGUAGE_MAP = {
     'q6_label': "Bagaimana Anda mendeskripsikan tingkat kekerasan Anda?",
     'calculate_btn': "Lihat Hasil",
     'results_title': "Hasil Cek Mandiri Anda",
-    'res_perf_label': "Kepercayaan Diri",
+    'res_perf_label': "Kinerja",
     'res_sat_label': "Kepuasan",
     'res_firm_label': "Kekerasan",
     'copy_btn': "📋 Salin Ringkasan untuk Aplikasi VED-Log",
+'copy_confirm': "Data akan dikirim ke aplikasi VED-Log. Salin ke papan klip?",
+
     'copy_done': "Berhasil disalin ke papan klip!",
     'validation_error': "Harap lengkapi semua pilihan sebelum menghitung hasil.",
     'questions': [
@@ -563,10 +573,12 @@ const LANGUAGE_MAP = {
     'q6_label': "Quý vị mô tả mức độ cứng của mình như thế nào?",
     'calculate_btn': "Xem kết quả",
     'results_title': "Kết quả tự kiểm tra của quý vị",
-    'res_perf_label': "Sự tự tin",
+    'res_perf_label': "Hiệu suất",
     'res_sat_label': "Sự hài lòng",
     'res_firm_label': "Độ cứng",
     'copy_btn': "📋 Sao chép tóm tắt cho ứng dụng VED-Log",
+'copy_confirm': "Dữ liệu sẽ được gửi đến ứng dụng VED-Log. Sao chép vào clipboard?",
+
     'copy_done': "Đã sao chép vào bộ nhớ tạm!",
     'validation_error': "Vui lòng hoàn thành tất cả các lựa chọn trước khi tính toán kết quả.",
     'questions': [
@@ -599,10 +611,12 @@ const LANGUAGE_MAP = {
     'q6_label': "كيف تصف مستوى الصلابة لديك؟",
     'calculate_btn': "عرض النتائج",
     'results_title': "نتائج فحصك الذاتي",
-    'res_perf_label': "الثقة",
+    'res_perf_label': "الأداء",
     'res_sat_label': "الرضا",
     'res_firm_label': "الصلابة",
     'copy_btn': "📋 نسخ الملخص لتطبيق VED-Log",
+'copy_confirm': "سيتم إرسال البيانات إلى تطبيق VED-Log. هل تريد نسخها إلى الحافظة؟",
+
     'copy_done': "تم النسخ إلى الحافظة!",
     'validation_error': "يرجى إكمال جميع الاختيارات قبل حساب النتائج.",
     'questions': [
@@ -627,19 +641,13 @@ const LANGUAGE_MAP = {
 
 function switchLanguage(lang) {
     currentLanguage = lang;
-    document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr'; 
+    document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
 
     const data = LANGUAGE_MAP[lang] || LANGUAGE_MAP['en'];
 
-    // Update Static Text
-    const ids = [
-        'disclaimer-title', 'disclaimer-text', 'main-title', 'intro-text', 
-        'part1-title', 'part2-title', 'part3-title', 'sat-label', 
-        'q6-label', 'calculate-btn', 'results-title', 'res-perf-label', 
-        'res-sat-label', 'res-firm-label', 'copy-btn', 'all-rights'
-    ];
-
+    // Update Static IDs
+    const ids = ['disclaimer-title', 'disclaimer-text', 'main-title', 'intro-text', 'part1-title', 'part2-title', 'part3-title', 'sat-label', 'q6-label', 'calculate-btn', 'results-title', 'res-perf-label', 'res-sat-label', 'res-firm-label', 'copy-btn', 'footer-title', 'footer-text'];
     ids.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
@@ -647,12 +655,6 @@ function switchLanguage(lang) {
             element.innerText = data[key] || "";
         }
     });
-
-    // Update Footer specifically
-    const footTitle = document.getElementById('footer-title');
-    const footText = document.getElementById('footer-text');
-    if (footTitle) footTitle.innerText = data.disclaimer_title;
-    if (footText) footText.innerText = data.disclaimer_text;
 
     // Rebuild Questions
     const container = document.getElementById('questions-container');
@@ -667,22 +669,22 @@ function switchLanguage(lang) {
             </div>`).join('');
     }
 
-    // Rebuild Dropdowns
+    // Rebuild Satisfaction Dropdown
     const satSelect = document.getElementById('satisfaction');
-    const firmSelect = document.getElementById('firmness');
-    const ranges = ["0-2","3-4","5-6","7-8","9-10"];
-
     if (satSelect) {
+        const ranges = ["0-2","3-4","5-6","7-8","9-10"];
         satSelect.innerHTML = `<option value="" disabled selected>Select...</option>`;
-        ranges.forEach((r, i) => {
-            satSelect.innerHTML += `<option value="${(i+1)*2}">(${r}) ${data.sat_classes[i]}</option>`;
+        data.sat_classes.forEach((label, i) => {
+            satSelect.innerHTML += `<option value="${(i+1)*2}">(${ranges[i]}) ${label}</option>`;
         });
     }
 
+    // Rebuild Firmness Dropdown
+    const firmSelect = document.getElementById('firmness');
     if (firmSelect) {
         firmSelect.innerHTML = `<option value="" disabled selected>Select...</option>`;
-        data.firm_classes.forEach((t, i) => {
-            firmSelect.innerHTML += `<option value="${i+1}">${i+1}: ${t}</option>`;
+        data.firm_classes.forEach((label, i) => {
+            firmSelect.innerHTML += `<option value="${i+1}">${i+1}: ${label}</option>`;
         });
     }
 }
@@ -698,7 +700,7 @@ function validateAndCalculate() {
         if(i.value === "") { i.classList.add('border-red-500'); missing = true; }
         else { i.classList.remove('border-red-500'); }
     });
-    
+
     if(!sat || sat.value === "") { sat.classList.add('border-red-500'); missing = true; }
     if(!firm || firm.value === "") { firm.classList.add('border-red-500'); missing = true; }
 
@@ -740,13 +742,16 @@ function calculateScores(isButtonClick) {
 }
 
 function copyToClipboard() {
-    if (!confirm("Copying may expose sensitive data to other apps. Continue?")) return;
+    const data = LANGUAGE_MAP[currentLanguage] || LANGUAGE_MAP['en'];
+    if (!confirm(data.copy_confirm)) return;
+
     const c = document.getElementById('perf-score-val').innerText;
     const s = document.getElementById('sat-score-val').innerText;
     const f = document.getElementById('firm-score-val').innerText;
-    const data = LANGUAGE_MAP[currentLanguage] || LANGUAGE_MAP['en'];
-    
-    navigator.clipboard.writeText(`Confidence: ${c}, Satisfaction: ${s}, Firmness: ${f}`).then(() => {
+
+    const textToCopy = `${data.res_perf_label}: ${c}, ${data.res_sat_label}: ${s}, ${data.res_firm_label}: ${f}`;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
         const status = document.getElementById('copy-status');
         status.innerText = data.copy_done;
         status.style.opacity = "1";
@@ -757,15 +762,8 @@ function copyToClipboard() {
 document.addEventListener('DOMContentLoaded', () => switchLanguage('en'));
 </script>
 
-<!-- =========================
-     🔐 COPY PROTECTION LAYER
-========================= -->
-
 <script>
-// Disable right click
 document.addEventListener('contextmenu', e => e.preventDefault());
-
-// Disable dev tools shortcuts
 document.onkeydown = function(e) {
     if (e.key === "F12" || 
        (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
@@ -773,17 +771,12 @@ document.onkeydown = function(e) {
         return false;
     }
 };
-
-// DevTools detection (tamper protection)
 setInterval(() => {
     if (window.outerWidth - window.innerWidth > 200) {
-        console.clear(); // silent protection only
+        console.clear();
     }
 }, 1500);
-
 window.validateAndCalculate = validateAndCalculate;
-
-
 </script>
 
 <footer class="mt-8 p-4 text-center text-xs text-gray-500 border-t border-gray-100">
