@@ -3,19 +3,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optional Self-Check</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
 <meta name="description" content="A personal, multi-language optional self-check tool. No data is stored or transmitted.">
 <meta http-equiv="Content-Security-Policy" content="
 default-src 'self';
-script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline';
+script-src 'self' 'unsafe-inline'; 
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src https://fonts.gstatic.com;
 img-src 'self' data:;
-connect-src 'self';
-frame-ancestors 'none';
-base-uri 'self';
-form-action 'self';
 ">
 
 <meta name="referrer" content="no-referrer">
@@ -43,7 +40,7 @@ form-action 'self';
 
     <div id="compliance-warning" class="sticky-disclaimer bg-white text-red-600 p-3 mb-6 rounded-lg shadow-xl text-center border-b-2 border-red-100">
         <p class="font-bold text-lg uppercase tracking-wider" id="disclaimer-title">MANDATORY MEDICAL DISCLAIMER</p>
-        <p class="text-sm mt-1" id="disclaimer-text">This tool is for informational use only and does not provide medical advice, diagnosis, or treatment.</p>
+        <p class="text-sm mt-1" id="disclaimer-text">This tool is for informational and research use only and does not provide medical advice, diagnosis, or treatment.</p>
     </div>
     
     <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl border border-gray-100">
@@ -139,9 +136,14 @@ form-action 'self';
                     <p id="firm-class" class="text-sm font-bold text-gray-700">--</p>
                 </div>
             </div>
-            <div class="flex flex-col items-center">
-                <button onclick="copyToClipboard()" id="copy-btn" class="px-6 py-2 bg-green-600 text-white font-bold rounded-lg shadow hover:bg-green-700 transition">📋 Copy Summary for VED-Log App</button>
-                <p id="copy-status" class="text-sm text-green-600 mt-2 font-medium opacity-0">Copied!</p>
+
+<div class="flex flex-col items-center space-y-3">
+    <button onclick="copyToClipboard()" id="copy-btn" class="px-6 py-2 bg-green-600 text-white font-bold rounded-lg shadow hover:bg-green-700 transition">📋 Copy for VED-Log App</button>
+    
+    <button onclick="saveToExcel()" id="save-excel-btn" class="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-700 transition">📊 Save as Excel (.csv)</button>
+    
+    <p id="copy-status" class="text-sm text-green-600 mt-2 font-medium opacity-0">Copied!</p>
+</div>
             </div>
         </section>
     </div>
@@ -152,7 +154,7 @@ let currentLanguage = 'en';
 const LANGUAGE_MAP = {
     'en': {
         'disclaimer_title': "MANDATORY MEDICAL DISCLAIMER", 
-        'disclaimer_text': "This tool is for informational use only and does not provide medical advice, diagnosis, or treatment.",
+        'disclaimer_text': "This tool is for informational and research use only and does not provide medical advice, diagnosis, or treatment.",
         'all_rights': "All rights reserved.",
         'main_title': "Optional Self-Check", 
         'intro_text': "Obtain your scores and transfer them to your Ved-Log app. No personal data is stored or transmitted. All inputs remain on your device.",
@@ -166,10 +168,9 @@ const LANGUAGE_MAP = {
         'res_perf_label': "Performance", 
         'res_sat_label': "Satisfaction", 
         'res_firm_label': "Firmness",
-        'copy_btn': "📋 Copy Summary for VED-Log App",
- 
-'copy_confirm': "Data will be transferred to the VED-Log app. Copy to clipboard?",
-
+        'copy_btn': "📋 Copy for VED-Log App",
+        'copy_confirm': "Data will be transferred to the VED-Log app. Copy to clipboard?",                
+        'save_excel_btn': "📊 Save as Excel (.csv)",
         'copy_done': "Copied to Clipboard!", 
         'validation_error': "Please complete all selections before calculating results.",
         'questions': [
@@ -193,7 +194,7 @@ const LANGUAGE_MAP = {
     'ja': {
         'disclaimer_title': "医療免責事項", 
         'disclaimer_text': "このツールは情報提供のみを目的としており、医学的な助言、診断、治療を提供するものではありません。",
-        'all_rights': "不許複製・無断転載禁止",
+        'all_rights': "無断転載禁止",
         'main_title': "自己チェック", 
         'intro_text': "スコアを取得して、Ved-Logアプリに転送してください。個人データは保存も送信もされません。すべての入力内容はデバイス上に保存されます。",
         'part1_title': "パート 1: パフォーマンス評価", 
@@ -206,10 +207,9 @@ const LANGUAGE_MAP = {
         'res_perf_label': "パフォーマンス", 
         'res_sat_label': "満足度", 
         'res_firm_label': "硬さ",
-        'copy_btn': "📋 VED-Logアプリにコピー", 
-
-'copy_confirm': "データはVED-Logアプリに転送されます。クリップボードにコピーしますか？",
-
+        'copy_btn': "📋 VED-Logアプリにコピー",
+        'save_excel_btn': "📊 Excel形式で保存 (.csv)", 
+        'copy_confirm': "データはVED-Logアプリに転送されます。クリップボードにコピーしますか？",     
         'copy_done': "コピーしました！", 
         'validation_error': "すべての項目を選択してください。",
         'questions': ["親密な状況において、どの程度自信を感じましたか？", "全体的なパフォーマンスに満足できたのはどのくらいの頻度でしたか？", "行為中、体調はどの程度安定していましたか？", "体験中、どの程度快適でしたか？", "現在のご自身の状態を総合的に評価するとどうなりますか？"],
@@ -221,6 +221,7 @@ const LANGUAGE_MAP = {
  'zh': {
     'disclaimer_title': "强制性医疗免责声明",
     'disclaimer_text': "本工具仅供参考，不提供医疗建议、诊断或治疗。",
+'all_rights': "版权所有。",
     'main_title': "可选自查工具",
     'intro_text': "获取您的分数并将其传输到您的 Ved-Log 应用程序。不会存储或传输任何个人数据。所有输入内容均保留在您的设备上。",
     'part1_title': "第一部分：表现自信度",
@@ -236,6 +237,7 @@ const LANGUAGE_MAP = {
     'copy_btn': "📋 复制摘要至 Ved-Log 应用程序",
 
 'copy_confirm':"数据将传输到 VED-Log 应用程序。复制到剪贴板？",
+'save_excel_btn': "📊 另存为 Excel (.csv)",
     'copy_done': "已复制到剪贴板！",
     'validation_error': "请在计算结果前完成所有选项。",
     'questions': [
@@ -259,6 +261,7 @@ const LANGUAGE_MAP = {
         'ko': {
     'disclaimer_title': "필수 의료 면책 조항",
     'disclaimer_text': "이 도구는 정보 제공 목적으로만 사용되며 의학적 조언, 진단 또는 치료를 제공하지 않습니다.",
+'all_rights': "모든 권리 보유.",
     'main_title': "선택적 자가진단",
     'intro_text': "점수를 확인하고 Ved-Log 앱으로 전송하세요.개인 정보는 저장되거나 전송되지 않습니다. 모든 입력 내용은 사용자의 기기에 저장됩니다.",
     'part1_title': "제1부: 수행 자신감",
@@ -273,7 +276,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "강직도",
     'copy_btn': "📋 VED-Log 앱용 요약 복사하기",
 'copy_confirm': "데이터가 VED-Log 앱으로 전송됩니다. 클립보드에 복사하시겠습니까?",
-
+'save_excel_btn': "📊 Excel 파일(.csv)로 저장",
     'copy_done': "클립보드에 복사되었습니다!",
     'validation_error': "결과를 계산하기 전에 모든 선택 항목을 완료해 주십시오.",
     'questions': [
@@ -297,6 +300,7 @@ const LANGUAGE_MAP = {
 'fr': {
     'disclaimer_title': "AVERTISSEMENT MÉDICAL OBLIGATOIRE",
     'disclaimer_text': "Cet outil est destiné à un usage informatif uniquement et ne constitue pas un avis médical, un diagnostic ou un traitement.",
+'all_rights': "Tous droits réservés.",
     'main_title': "Auto-vérification facultative",
     'intro_text': "Récupérez vos scores et transférez-les sur votre application Ved-Log. Aucune donnée personnelle n'est stockée ni transmise. Toutes les données saisies restent sur votre appareil.",
     'part1_title': "Partie 1 : Confiance en la performance",
@@ -310,8 +314,8 @@ const LANGUAGE_MAP = {
     'res_sat_label': "Satisfaction",
     'res_firm_label': "Fermeté",
     'copy_btn': "📋 Copier le résumé pour l'application VED-Log",
-'copy_confirm': "Les données seront envoyées à l'application VED-Log. Copier dans le presse-papiers ?",
-
+    'copy_confirm': "Les données seront envoyées à l'application VED-Log. Copier dans le presse-papiers ?",
+    'save_excel_btn': "📊 Enregistrer au format Excel (.csv)",
     'copy_done': "Copié dans le presse-papiers !",
     'validation_error': "Veuillez compléter toutes les sélections avant de calculer les résultats.",
     'questions': [
@@ -335,6 +339,7 @@ const LANGUAGE_MAP = {
         'es': {
     'disclaimer_title': "AVISO MÉDICO OBLIGATORIO",
     'disclaimer_text': "Cet outil est destiné à un usage informatif uniquement et ne constitue pas un avis médical, un diagnostic ou un traitement.",
+'all_rights': "Reservados todos los derechos.",
     'main_title': "Autochequeo Opcional",
     'intro_text': "Obtén tus puntuaciones y transfiérelas a tu aplicación Ved-Log. No se almacena ni se transmite ningún dato personal. Todos los datos introducidos permanecen en su dispositivo.",
     'part1_title': "Parte 1: Confianza en el desempeño",
@@ -349,7 +354,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "Firmeza",
     'copy_btn': "📋 Copiar resumen para la aplicación VED-Log",
 'copy_confirm': "Los datos se enviarán a la aplicación VED-Log. ¿Copiar al portapapeles?",
-
+'save_excel_btn': "📊 Guardar como Excel (.csv)",
     'copy_done': "¡Copiado al portapapeles!",
     'validation_error': "Por favor, complete todas las selecciones antes de calcular los resultados.",
     'questions': [
@@ -374,6 +379,7 @@ const LANGUAGE_MAP = {
         'ru': {
     'disclaimer_title': "ОБЯЗАТЕЛЬНЫЙ МЕДИЦИНСКИЙ ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ",
     'disclaimer_text': "Данный инструмент предназначен исключительно для ознакомительных целей и не предоставляет медицинских консультаций, диагностики или лечения.",
+'all_rights': "Все права защищены.",
     'main_title': "Дополнительная самопроверка",
     'intro_text': "Получите свои результаты и перенесите их в приложение Ved-Log. Персональные данные не хранятся и не передаются. Все введенные данные остаются на вашем устройстве.",
     'part1_title': "Часть 1: Уверенность в результатах",
@@ -388,7 +394,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "Твердость",
     'copy_btn': "📋 Копировать сводку для приложения VED-Log",
 'copy_confirm': "Данные будут отправлены в приложение VED-Log. Скопировать в буфер обмена?",
-
+'save_excel_btn': "📊 Сохранить как файл Excel (.csv)",
     'copy_done': "Скопировано в буфер обмена!",
     'validation_error': "Пожалуйста, заполните все поля перед расчетом результатов.",
     'questions': [
@@ -412,6 +418,7 @@ const LANGUAGE_MAP = {
         'de': {
     'disclaimer_title': "VERPFLICHTENDER MEDIZINISCHER HAFTUNGSAUSSCHLUSS",
     'disclaimer_text': "Dieses Tool dient ausschließlich Informationszwecken und stellt keine medizinische Beratung, Diagnose oder Behandlung dar.",
+'all_rights': "Alle Rechte vorbehalten.",
     'main_title': "Optionaler Selbstcheck",
     'intro_text': "Ermitteln Sie Ihre Ergebnisse und übertragen Sie diese in Ihre Ved-Log App. Es werden keine personenbezogenen Daten gespeichert oder übertragen. Alle Eingaben verbleiben auf Ihrem Gerät.",
     'part1_title': "Teil 1: Vertrauen in die Leistungsfähigkeit",
@@ -426,7 +433,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "Härte",
     'copy_btn': "📋 Zusammenfassung für VED-Log App kopieren",
 'copy_confirm': "Die Daten werden an die VED-Log-App gesendet. In die Zwischenablage kopieren?",
-
+'save_excel_btn': "📊 Als Excel-Datei speichern (.csv)",
     'copy_done': "In die Zwischenablage kopiert!",
     'validation_error': "Bitte füllen Sie alle Auswahlfelder aus, bevor Sie die Ergebnisse berechnen.",
     'questions': [
@@ -450,6 +457,7 @@ const LANGUAGE_MAP = {
         'nl': {
     'disclaimer_title': "VERPLICHTE MEDISCHE DISCLAIMER",
     'disclaimer_text': "Deze tool is uitsluitend bedoeld voor informatieve doeleinden en biedt geen medisch advies, diagnose of behandeling.",
+'all_rights': "Alle rechten voorbehouden.",
     'main_title': "Optionele zelfcontrole",
     'intro_text': "Verkrijg uw scores en overhandig deze naar uw Ved-Log app. Er worden geen persoonlijke gegevens opgeslagen of verzonden. Alle invoer blijft op uw apparaat.",
     'part1_title': "Deel 1: Vertrouwen in prestaties",
@@ -464,7 +472,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "Hardheid",
     'copy_btn': "📋 Kopieer samenvatting voor VED-Log App",
 'copy_confirm': "De gegevens worden naar de VED-Log-app verzonden. Kopiëren naar het klembord?",
-
+'save_excel_btn': "📊 Opslaan als Excel (.csv)",
     'copy_done': "Gekopieerd naar klembord!",
     'validation_error': "Vul alle selecties in voordat u de resultaten berekent.",
     'questions': [
@@ -488,6 +496,7 @@ const LANGUAGE_MAP = {
         'hi': {
     'disclaimer_title': "अनिवार्य चिकित्सा अस्वीकरण",
     'disclaimer_text': "यह टूल सिर्फ़ जानकारी के लिए है और यह मेडिकल सलाह, डायग्नोसिस या इलाज नहीं देता है।",
+'all_rights': "सर्वाधिकार सुरक्षित।",
     'main_title': "वैकल्पिक स्व-जांच",
     'intro_text': "अपने स्कोर प्राप्त करें और उन्हें अपने Ved-Log ऐप में स्थानांतरित करें। कोई भी पर्सनल डेटा स्टोर या ट्रांसमिट नहीं किया जाता है। सभी इनपुट आपके डिवाइस पर ही रहते हैं।",
     'part1_title': "भाग 1: प्रदर्शन आत्मविश्वास",
@@ -502,7 +511,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "कठोरता",
     'copy_btn': "📋 VED-Log ऐप के लिए सारांश कॉपी करें",
 'copy_confirm': "डेटा VED-Log ऐप पर भेजा जाएगा। क्लिपबोर्ड पर कॉपी करें?",
-
+'save_excel_btn': "📊 Excel (.csv) के रूप में सहेजें",
     'copy_done': "क्लिपबोर्ड पर कॉपी किया गया!",
     'validation_error': "परिणामों की गणना करने से पहले कृपया सभी चयन पूरे करें।",
     'questions': [
@@ -526,6 +535,7 @@ const LANGUAGE_MAP = {
         'id': {
     'disclaimer_title': "Pernyataan Penyangkalan Medis Wajib",
     'disclaimer_text': "Alat ini hanya untuk tujuan informasi dan tidak memberikan saran medis, diagnosis, atau pengobatan.",
+'all_rights': "Simpan sebagai Excel (.csv)",
     'main_title': "Cek Mandiri Opsional",
     'intro_text': "Dapatkan skor Anda dan transfer ke aplikasi Ved-Log Anda. Tidak ada data pribadi yang disimpan atau ditransmisikan. Semua input tetap berada di perangkat Anda.",
     'part1_title': "Bagian 1: Kepercayaan Diri Performa",
@@ -540,7 +550,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "Kekerasan",
     'copy_btn': "📋 Salin Ringkasan untuk Aplikasi VED-Log",
 'copy_confirm': "Data akan dikirim ke aplikasi VED-Log. Salin ke papan klip?",
-
+'save_excel_btn': "📊 Simpan sebagai Excel (.csv)",
     'copy_done': "Berhasil disalin ke papan klip!",
     'validation_error': "Harap lengkapi semua pilihan sebelum menghitung hasil.",
     'questions': [
@@ -564,6 +574,7 @@ const LANGUAGE_MAP = {
         'vi': {
     'disclaimer_title': "TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM Y TẾ BẮT BUỘC",
     'disclaimer_text': "Công cụ này chỉ mang tính chất thông tin và không cung cấp lời khuyên y tế, chẩn đoán hoặc điều trị.",
+'all_rights': "Lưu dưới dạng tệp Excel (.csv)",
     'main_title': "Tự kiểm tra tùy chọn",
     'intro_text': "Lấy điểm số của quý vị và chuyển chúng vào ứng dụng Ved-Log. Không có dữ liệu cá nhân nào được lưu trữ hoặc truyền tải. Tất cả thông tin nhập vào đều được lưu giữ trên thiết bị của bạn.",
     'part1_title': "Phần 1: Sự tự tin về hiệu suất",
@@ -578,7 +589,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "Độ cứng",
     'copy_btn': "📋 Sao chép tóm tắt cho ứng dụng VED-Log",
 'copy_confirm': "Dữ liệu sẽ được gửi đến ứng dụng VED-Log. Sao chép vào clipboard?",
-
+'save_excel_btn': "📊 Lưu dưới dạng tệp Excel (.csv)",
     'copy_done': "Đã sao chép vào bộ nhớ tạm!",
     'validation_error': "Vui lòng hoàn thành tất cả các lựa chọn trước khi tính toán kết quả.",
     'questions': [
@@ -602,6 +613,7 @@ const LANGUAGE_MAP = {
         'ar': {
     'disclaimer_title': "إخلاء مسؤولية طبي إلزامي",
     'disclaimer_text': "هذه الأداة مخصصة للاستخدام المعلوماتي فقط ولا تقدم نصائح طبية أو تشخيصًا أو علاجًا.",
+'all_rights': "حفظ كملف إكسل (.csv)",
     'main_title': "فحص ذاتي اختياري",
     'intro_text': "احصل على نتائجك وانقلها إلى تطبيق Ved-Log. لا يتم تخزين أو نقل أي بيانات شخصية. تبقى جميع المدخلات على جهازك.", 'all_rights': "جميع الحقوق محفوظة.",
     'part1_title': "الجزء 1: الثقة في الأداء",
@@ -616,7 +628,7 @@ const LANGUAGE_MAP = {
     'res_firm_label': "الصلابة",
     'copy_btn': "📋 نسخ الملخص لتطبيق VED-Log",
 'copy_confirm': "سيتم إرسال البيانات إلى تطبيق VED-Log. هل تريد نسخها إلى الحافظة؟",
-
+'save_excel_btn': "📊 حفظ كملف إكسل (.csv)",
     'copy_done': "تم النسخ إلى الحافظة!",
     'validation_error': "يرجى إكمال جميع الاختيارات قبل حساب النتائج.",
     'questions': [
@@ -639,6 +651,44 @@ const LANGUAGE_MAP = {
 },
     };
 
+function saveToExcel() {
+    const data = LANGUAGE_MAP[currentLanguage] || LANGUAGE_MAP['en'];
+    
+    // 1. Get numeric values
+    const perf = document.getElementById('perf-score-val').innerText;
+    const firm = document.getElementById('firm-score-val').innerText;
+    
+    // 2. Extract only the number from satisfaction (e.g., "8" from "7-8") for easier graphing
+    const satFullText = document.getElementById('sat-score-val').innerText;
+    const sat = satFullText.split('-')[0] || satFullText;
+    
+    // 3. Get current date and time
+    const now = new Date();
+    const timestamp = now.toLocaleString(); 
+    const fileDate = now.toISOString().split('T')[0];
+
+    // 4. Build the CSV row (Horizontal Structure)
+    // - \ufeff: Fixes display issues with Japanese/International characters in Excel
+    // - "sep=,": Forces Excel to use columns correctly
+    // - "${timestamp}": Quotes keep Date and Time in ONE cell
+    const csvContent = "\ufeff" 
+        + `Date/Time,${data.res_perf_label},${data.res_sat_label},${data.res_firm_label}\n`
+        + `"${timestamp}",${perf},${sat},${firm}\n`;
+
+    // 5. Create a Blob and a download link
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute("href", url);
+    link.setAttribute("download", `VED_Session_${fileDate}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 function switchLanguage(lang) {
     currentLanguage = lang;
     document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
@@ -646,30 +696,67 @@ function switchLanguage(lang) {
 
     const data = LANGUAGE_MAP[lang] || LANGUAGE_MAP['en'];
 
-    // Update Static IDs
-    const ids = ['disclaimer-title', 'disclaimer-text', 'main-title', 'intro-text', 'part1-title', 'part2-title', 'part3-title', 'sat-label', 'q6-label', 'calculate-btn', 'results-title', 'res-perf-label', 'res-sat-label', 'res-firm-label', 'copy-btn', 'footer-title', 'footer-text'];
+    // 1. FIXED ID LIST: Added footer-title and footer-text
+    const ids = [
+        'disclaimer-title', 'disclaimer-text', 'main-title', 'intro-text', 
+        'part1-title', 'part2-title', 'part3-title', 'sat-label', 'q6-label', 
+        'calculate-btn', 'results-title', 'res-perf-label', 'res-sat-label', 
+        'res-firm-label', 'copy-btn', 'save-excel-btn', 'all-rights',
+        'footer-title', 'footer-text' 
+    ];
+
     ids.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
-            const key = id.replace(/-/g, '_');
-            element.innerText = data[key] || "";
+            let key = id.replace(/-/g, '_');
+            
+            // Redirect footer IDs to use the existing disclaimer keys
+            if (key === 'footer_title') key = 'disclaimer_title';
+            if (key === 'footer_text') key = 'disclaimer_text';
+
+            element.innerText = data[key] || element.innerText;
         }
     });
 
-    // Rebuild Questions
+    // 2. FIXED PART 1: Rebuilding questions with the correct language data
     const container = document.getElementById('questions-container');
     if (container && data.questions) {
         container.innerHTML = data.questions.map((q, i) => `
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                 <label class="block text-lg font-medium text-gray-700 mb-3">${i+1}. ${q}</label>
                 <select class="score-input q-input" onchange="calculateScores(false)">
-                    <option value="" disabled selected>Select...</option>
+                    <option value="" disabled selected>${lang === 'ja' ? '選択してください...' : 'Select...'}</option>
                     ${data.options[i].map((opt, val) => `<option value="${val}">${opt}</option>`).join('')}
                 </select>
             </div>`).join('');
     }
 
-    // Rebuild Satisfaction Dropdown
+    // 3. Update Results descriptions (Only if results are visible)
+    const resultBox = document.getElementById('results-display');
+    if (resultBox && !resultBox.classList.contains('hidden')) {
+        const perfVal = parseInt(document.getElementById('perf-score-val').innerText);
+        const satVal = parseInt(document.getElementById('sat-score-val').innerText) || 0;
+        const firmVal = parseInt(document.getElementById('firm-score-val').innerText);
+
+        if (!isNaN(perfVal)) {
+            let perfIdx = (perfVal >= 17) ? 4 : (perfVal >= 12) ? 3 : (perfVal >= 8) ? 2 : (perfVal >= 3) ? 1 : 0;
+            document.getElementById('perf-class').innerText = data.perf_classes[perfIdx];
+        }
+        if (!isNaN(satVal)) {
+            let satIdx = Math.max(0, Math.floor(satVal / 2) - 1);
+            document.getElementById('sat-class').innerText = data.sat_classes[satIdx];
+        }
+        if (!isNaN(firmVal)) {
+            document.getElementById('firm-class').innerText = data.firm_classes[firmVal - 1];
+        }
+    }
+
+    // Update remaining dropdowns
+    updateDropdowns(data);
+}
+
+// Helper function to keep switchLanguage clean
+function updateDropdowns(data) {
     const satSelect = document.getElementById('satisfaction');
     if (satSelect) {
         const ranges = ["0-2","3-4","5-6","7-8","9-10"];
@@ -679,7 +766,6 @@ function switchLanguage(lang) {
         });
     }
 
-    // Rebuild Firmness Dropdown
     const firmSelect = document.getElementById('firmness');
     if (firmSelect) {
         firmSelect.innerHTML = `<option value="" disabled selected>Select...</option>`;
@@ -688,7 +774,6 @@ function switchLanguage(lang) {
         });
     }
 }
-
 function validateAndCalculate() {
     const inputs = document.querySelectorAll('.q-input');
     const sat = document.getElementById('satisfaction');
@@ -728,8 +813,8 @@ function calculateScores(isButtonClick) {
 
         document.getElementById('perf-score-val').innerText = totalPerf;
         document.getElementById('perf-class').innerText = data.perf_classes[perfIdx];
-        document.getElementById('sat-score-val').innerText = ranges[satIdx];
-        document.getElementById('sat-class').innerText = data.sat_classes[satIdx];
+        document.getElementById('sat-score-val').innerText = satVal; // Now shows "8"
+document.getElementById('sat-class').innerText = `(${ranges[satIdx]}) ${data.sat_classes[satIdx]}`;
         document.getElementById('firm-score-val').innerText = firmVal;
         document.getElementById('firm-class').innerText = data.firm_classes[firmVal-1];
 
@@ -745,15 +830,25 @@ function copyToClipboard() {
     const data = LANGUAGE_MAP[currentLanguage] || LANGUAGE_MAP['en'];
     if (!confirm(data.copy_confirm)) return;
 
-    const c = document.getElementById('perf-score-val').innerText;
-    const s = document.getElementById('sat-score-val').innerText;
-    const f = document.getElementById('firm-score-val').innerText;
+    // Helper to grab just the last number (e.g., "20" from "16-20")
+    const extractLastNumber = (id) => {
+        const element = document.getElementById(id);
+        if (!element) return "0";
+        const text = element.innerText.trim();
+        const parts = text.split(/[-–—\s]+/); 
+        return parts[parts.length - 1];
+    };
 
-    const textToCopy = `${data.res_perf_label}: ${c}, ${data.res_sat_label}: ${s}, ${data.res_firm_label}: ${f}`;
+    const c = extractLastNumber('perf-score-val');
+    const s = extractLastNumber('sat-score-val');
+    const f = extractLastNumber('firm-score-val');
+
+    // This creates the clean string: "20, 8, 3"
+    const textToCopy = `${c}, ${s}, ${f}`;
 
     navigator.clipboard.writeText(textToCopy).then(() => {
         const status = document.getElementById('copy-status');
-        status.innerText = data.copy_done;
+        status.innerText = data.copy_done || "Copied!";
         status.style.opacity = "1";
         setTimeout(() => status.style.opacity = "0", 2000);
     });
@@ -780,8 +875,8 @@ window.validateAndCalculate = validateAndCalculate;
 </script>
 
 <footer class="mt-8 p-4 text-center text-xs text-gray-500 border-t border-gray-100">
-    <p>&copy; 2026 Mohammad Ghazizadeh. <span id="all-rights">All rights reserved.</span></p>
+    <p>&copy; 2026 M. Ghazizadeh, MD, PhD. <span id="all-rights">All rights reserved.</span></p>
     <p class="mt-2 uppercase font-bold text-gray-400" id="footer-title">MANDATORY MEDICAL DISCLAIMER</p>
-    <p id="footer-text">This tool is for informational use only and does not provide medical advice, diagnosis, or treatment.</p>
+    <p id="footer-text">This tool is for informational and research use only and does not provide medical advice, diagnosis, or treatment.</p>
 </footer>
 </body></html>
