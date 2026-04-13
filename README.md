@@ -4,7 +4,7 @@
 ---
 
 ## 👨‍⚕️ Professional Overview
-Developed by **Mohammad Ghazizadeh, MD, PhD**, this tool is a high-performance, local-first utility designed for wellness logging. It provides users with an optional self-check interface to obtain performance confidence, satisfaction, and firmness scores, which can then be transferred to the core **Ved-Log** ecosystem. It may be used for research purposes too.
+Developed by **M. Ghazizadeh, MD, PhD**, this tool is a high-performance, local-first utility designed for wellness logging. It provides users with an optional self-check interface to obtain performance confidence, satisfaction, and firmness scores, which can then be transferred to the core **Ved-Log** ecosystem. It may be used for research purposes too.
 
 ## 🛡️ Core Principles: Zero-Tracking & Local Data
 This application is built with a **Privacy-by-Design** architecture:
