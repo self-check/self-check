@@ -1,10 +1,10 @@
-# Optional Self-Check Tool for VED Usage Logger (Ved-Log)
+# Optional Self-Check for VED Usage Logger Tool (Ved-Log)
 **Version 1.0.0 | Privacy-Centric Wellness Interface**
 
 ---
 
 ## 👨‍⚕️ Professional Overview
-Developed by **M. Ghazizadeh, MD, PhD**, this tool is a high-performance, local-first utility designed for wellness logging. It provides users with an optional self-check interface to obtain performance confidence, satisfaction, and firmness scores, which can then be transferred to the core **Ved-Log** ecosystem. It may be used for research purposes too.
+Developed by **M. Ghazizadeh, MD, PhD**, this tool is a high-performance, local-first utility designed for wellness logging. It provides users with an optional self-check interface to obtain performance confidence, satisfaction, and firmness scores, which can then be transferred to the core **Ved-Log** ecosystem.
 
 ## 🛡️ Core Principles: Zero-Tracking & Local Data
 This application is built with a **Privacy-by-Design** architecture:
@@ -18,28 +18,22 @@ The tool features a robust multi-language engine supporting **13 languages**, in
 * **RTL Support:** Native Right-to-Left layout support for Arabic users.
 
 ## 🛠️ Technical Stack
-* **Frontend:** HTML5, Tailwind CSS (via CDN).
+* **Frontend:** HTML5, Tailwind CSS (Local-first implementation).
 * **Logic:** Vanilla JavaScript (ES6+).
-* **Security:** * Right-click and Developer Tool (F12) shortcuts disabled to prevent casual tampering.
-    * Content Security Policy (CSP) ready.
-    * Input sanitization for URL parameters.
+* **Security & Integrity:** 
+* Strict Content Security Policy (CSP): Optimized to block external script execution and unauthorized data injection.
+* UI Protection: Disabled right-click and Developer Tool (F12) shortcuts to discourage casual tampering with the assessment logic.
+* Privacy-First Design: Zero-tracking architecture; all calculations and data persistence (CSV export) occur strictly on the client side.
+* Input Sanitization: Robust handling of inputs to ensure data integrity.
 
 ## ⚖️ Legal Disclaimer & Copyright
-**Copyright © 2026 Mohammad Ghazizadeh. All rights reserved.**
+**Copyright © 2026 M. Ghazizadeh, MD, PhD. All rights reserved.**
 
 ### MANDATORY MEDICAL DISCLAIMER
-This tool is provided for **informational and educational and research purposes only**. 
+This tool is provided for **informational and educational purposes only**. 
 * It does **not** constitute medical advice, diagnosis, or treatment. 
 * Users should always seek the advice of a physician or other qualified health provider with any questions regarding a medical condition. 
 * Use of this tool does not create a doctor-patient relationship.
 
 ## 📄 License
-**Proprietary / All Rights Reserved.** Unauthorized copying, modification, or distribution of the source code is strictly prohibited.[README.md](https://github.com/user-attachments/files/26354700/README.md)
-.
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+**Proprietary / All Rights Reserved.** Unauthorized copying, modification, reverse engineering or distribution of the source code is strictly prohibited.
