@@ -4,30 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optional Self-Check</title>
-
-    <link href="./tailwind.min.css" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <meta name="description" content="A personal, multi-language optional self-check tool. No data is stored or transmitted.">
+    
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline'; 
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src https://fonts.gstatic.com;
+        img-src 'self' data:;
+    ">
     <meta name="referrer" content="no-referrer">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
 
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' 'unsafe-inline';
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        font-src https://fonts.gstatic.com;
-        img-src 'self' data:;
-        connect-src 'self';
-        frame-ancestors 'none';
-        base-uri 'self';
-        form-action 'self';
-    ">
-
     <style>
-        /* Custom CSS*/
         body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
         .score-input {
             appearance: none; -webkit-appearance: none; width: 100%; min-height: 52px; 
@@ -39,16 +34,35 @@
         .border-red-500 { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
         .result-box { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .sticky-disclaimer { position: sticky; top: 0; z-index: 50; }
         [lang="ar"] { direction: rtl; text-align: right; }
+
+        /* Removes the default arrow in Chrome/Safari/Edge */
+        summary::-webkit-details-marker { display: none; }
+        /* General removal for other browsers */
+        summary { list-style: none; outline: none; }
     </style>
+</head>
 
 <body class="p-4 md:p-8">
 
-    <div id="compliance-warning" class="sticky-disclaimer bg-white text-red-600 p-3 mb-6 rounded-lg shadow-xl text-center border-b-2 border-red-100">
-        <p class="font-bold text-lg uppercase tracking-wider" id="disclaimer-title">MANDATORY MEDICAL DISCLAIMER</p>
-        <p class="text-sm mt-1" id="disclaimer-text">This tool is for informational and research use only and does not provide medical advice, diagnosis, or treatment.</p>
+    <details id="compliance-warning" class="bg-white text-red-600 p-3 mb-6 rounded-lg shadow-xl border border-red-100 cursor-pointer group">
+    <summary class="list-none flex items-center justify-between">
+        <div class="flex-1 text-center">
+            <p class="font-bold text-lg uppercase tracking-wider inline-block" id="disclaimer-title">
+                MANDATORY MEDICAL DISCLAIMER
+            </p>
+        </div>
+        <svg class="w-5 h-5 transform transition-transform group-open:rotate-180 text-red-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </summary>
+    
+    <div class="mt-3 pt-3 border-t border-red-50">
+        <p class="text-sm text-center italic" id="disclaimer-text">
+            This tool is for informational and research use only and does not provide medical advice, diagnosis, or treatment.
+        </p>
     </div>
+</details>
     
     <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl border border-gray-100">
         <div class="flex justify-end mb-4">
